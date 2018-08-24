@@ -3,7 +3,7 @@ pipeline {
       label "jenkins-maven"
     }
     environment {
-      ORG               = 'ryandawsonuk'
+      ORG               = 'igdianov'
       APP_NAME          = 'downstream'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
     }
@@ -88,7 +88,7 @@ pipeline {
     //  }
     }
     post {
-        always {
+        success {
             cleanWs()
         }
         failure {
