@@ -54,8 +54,8 @@ pipeline {
             sh 'mvn clean install'
               
             sh "git add --all"
-            sh "git commit -m 'release \$(cat VERSION)' --allow-empty"
-            sh "git tag -fa v\$(cat VERSION) -m 'Release version \$(cat VERSION)'"
+            sh "git commit -m 'Release '\$(cat VERSION) --allow-empty"
+            sh "git tag -fa v\$(cat VERSION) -m 'Release version '\$(cat VERSION)"
             sh "git push origin v\$(cat VERSION)"
           }
           // dir ('./charts/downstream') {
