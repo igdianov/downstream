@@ -3,7 +3,7 @@ pipeline {
       label "jenkins-maven"
     }
     environment {
-      ORG               = 'ryandawsonuk'
+      ORG               = 'igdianov'
       APP_NAME          = 'downstream'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
     }
@@ -64,7 +64,7 @@ pipeline {
           //   }
           // }
           container('maven') {
-            sh 'mvn clean deploy'
+            sh 'mvn clean deploy -DskipTests'
 
             sh 'export VERSION=`cat VERSION`'// && skaffold build -f skaffold.yaml'
 
@@ -72,11 +72,15 @@ pipeline {
           }
         }
       }
-//      stage('Promote to Environments') {
-  //      when {
-    //      branch 'master'
-    //    }
-    //    steps {
+      stage('Promote to Environments') {
+        when {
+          branch 'develop'
+        }
+        steps {
+          container('maven') {
+            // Let's publish release notes in Github
+            sh "jx step changelog --version v\$(cat VERSION) --generate-yaml=false"
+          }
     //      dir ('./charts/downstream') {
     //        container('maven') {
     //          sh 'jx step changelog --version v\$(cat ../../VERSION)'
@@ -88,8 +92,8 @@ pipeline {
             //  sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)'
     //        }
     //      }
-    //    }
-    //  }
+        }
+      }
     }
     post {
         success {
