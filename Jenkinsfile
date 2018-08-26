@@ -6,7 +6,6 @@ pipeline {
       ORG               = 'ryandawsonuk'
       APP_NAME          = 'downstream'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
-      RELEASE_BRANCH    = 'develop'
     }
     stages {
       stage('CI Build and push snapshot') {
@@ -38,12 +37,12 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch '$RELEASE_BRANCH'
+          branch 'develop'
         }
         steps {
           container('maven') {
             // ensure we're not on a detached head
-            sh "git checkout $RELEASE_BRANCH" 
+            sh "git checkout develop" 
             sh "git config --global credential.helper store"
 
             sh "jx step git credentials"
