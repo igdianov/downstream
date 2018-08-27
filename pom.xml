@@ -14,7 +14,7 @@
 	<parent>
   		<groupId>org.example</groupId>
 		<artifactId>upstream</artifactId>
-		<version>1.0.7</version>
+		<version>1.0.8</version>
 		<relativePath/>
 <!-- 
  		<groupId>org.springframework.boot</groupId>
@@ -35,7 +35,7 @@
 			<dependency>
 				<groupId>org.example</groupId>
 				<artifactId>upstream</artifactId>
-				<version>1.0.7</version>
+				<version>1.0.8</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
