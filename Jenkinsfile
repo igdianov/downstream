@@ -53,10 +53,7 @@ pipeline {
             // Let's test before making tag in Git  
             sh 'mvn clean install'
               
-            sh "git add --all"
-            sh "git commit -m 'Release '\$(cat VERSION) --allow-empty"
-            sh "git tag -fa v\$(cat VERSION) -m 'Release version '\$(cat VERSION)"
-            sh "git push origin v\$(cat VERSION)"
+            sh "make tag"
           }
           // dir ('./charts/downstream') {
           //   container('maven') {
@@ -79,7 +76,7 @@ pipeline {
         steps {
           container('maven') {
             // Let's publish release notes in Github
-            sh "jx step changelog --version v\$(cat VERSION) --generate-yaml=false"
+            sh "make changelog"
           }
     //      dir ('./charts/downstream') {
     //        container('maven') {
